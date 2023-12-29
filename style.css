@@ -1,0 +1,73 @@
+:root {
+    --blockLeft: 480px;
+}
+
+h2 {
+    text-align: center;
+    text-decoration: underline;
+    font-family: 'Arial Narrow Bold', sans-serif;
+
+}
+.about-me {
+    background-color:antiquewhite;
+    margin: auto;
+}
+#game {
+    width: 500px;
+    height: 200px;
+    border: 1px solid black;
+    overflow: hidden;
+}
+#start{
+    background-color: brown;
+    width: 500px;
+    height: 200px;
+    position:absolute;
+    z-index: 1;
+}
+#character {
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    position: relative;
+    border-radius: 50%;
+    top: 170px;
+
+}
+#block {
+    width: 80px;
+    height: 30px;
+    background-color: blue;
+    position: relative;
+    top: 140px;
+    left: 500px;
+    animation: block 1.5s infinite linear;
+}
+.banimateslow {
+    animation: block 3.5s infinite linear;
+}
+.banimatefast {
+    animation: block 1s infinite linear;
+}
+.animate{
+    animation: jump 500ms;
+}
+.animate2{
+    animation: jumpTop 500ms;
+}
+@keyframes block{
+    0%{left:var(--blockLeft,480px);}
+    100%{left:-80px;}
+}
+@keyframes jump{
+    0%{top: 150px}
+    30%{top: 100px;}
+    70%{top:100px;}
+    100%{top: 150px;}
+}
+
+@keyframes jumpTop{
+    0%{top: 130px}
+    50%{top: 130px;}
+    100%{top: 150px;}
+}

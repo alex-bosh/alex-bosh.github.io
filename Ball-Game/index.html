@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <style>
+        body {
+            margin: 0;
+            
+        }
+
+        #start-button {
+            position: relative;
+            cursor: pointer;
+            top: 300px;
+        }
+
+        #start-screen {
+            display: block;
+            position: absolute;
+            text-align: center;
+        }
+
+        #retry-button {
+            position: relative;
+            cursor: pointer;
+            top: 300px;
+        }
+
+        #over-screen {
+            display: none;
+            position: absolute;
+            text-align: center;
+        }
+
+        #score-screen {
+            display: block;
+            position: absolute;
+            left: 5px;
+            text-align: center;
+            user-select: none;
+        }
+
+        canvas {
+            border: 1px solid black;
+        }
+
+    </style>
+
+    <head>
+        <title>Ball Game</title>
+    </head>
+    <body>
+        <div id="score-screen">
+            <h1 id="score">0</h1>
+        </div>
+        <div id="start-screen">
+            <button id="start-button" onclick="startGame()">Start Game</button>
+        </div>
+        <div id="over-screen">
+            <button id="retry-button" onclick="restartGame()">Restart Game</button>
+        </div>
+        <canvas></canvas>
+        <h2>Click to push the ball downwards and make it bounce off the ground in order to avoid the sides of the red rectangles!</h1>
+    </body>
+    <script src="index.js"></script>
+</html>
