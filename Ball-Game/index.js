@@ -5,6 +5,7 @@ const settingsScreen = document.getElementById("settings-screen");
 const overScreen = document.getElementById("over-screen");
 const scoreScreen = document.getElementById("score-screen");
 const score = document.getElementById("score");
+const fpsEl = document.getElementById("fps");
 const highScoreEl = document.getElementById("high-score");
 highScoreEl.style.display = "none";
 canvas.width = 800;
@@ -17,7 +18,6 @@ overScreen.style.width = `${canvas.width}px`;
 overScreen.style.height = `${canvas.height}px`;
 scoreScreen.style.width = `${canvas.width}px`;
 scoreScreen.style.height = `${canvas.height}px`;
-
 var radiusSlider = document.getElementById("radiusSlider");
 radiusSlider.oninput = function () {
     player.radius = Number(this.value);
@@ -220,9 +220,20 @@ const platform = new Platform();
 
 
 let withPlat = 0; // If the ball is in line with the platform
+let countfps = 1;
+var t = [];
 
-function animate() {
+function animate(now) {
+    t.unshift(now);
+    if (t.length > 10) {
+        var t0 = t.pop();
+        var fps = Math.floor(1000 * 10 / (now - t0));
+        fpsEl.textContent = `FPS: ${fps}`;
+    }
     requestAnimationFrame(animate);
+    //console.log(performance.now()/ countfps);
+    //countfps++;
+    
     
     c.clearRect(0, 0, canvas.width, canvas.height);
     platform.update();
