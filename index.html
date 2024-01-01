@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <style>
+        * {
+            user-select: none;
+        }
+
+        #game-container {
+            height: 500px;
+            width: 800px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 5px solid black;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        #start-button {
+            position: relative;
+            cursor: pointer;
+            top: 300px;
+            width: 150px;
+        }
+
+        #start-screen {
+            display: block;
+            position: absolute;
+            text-align: center;
+            backdrop-filter: blur(6px);
+        }
+
+        #settings-button {
+            position: relative;
+            cursor: pointer;
+            top: 300px;
+            width: 150px;
+        }
+
+        #settings-screen {
+            display: none;
+            position: absolute;
+            text-align: center;
+            backdrop-filter: blur(6px);
+        }
+
+        #settings-screen input {
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        #settings-screen button {
+            position: static;
+        }
+
+        #retry-back-button {
+            position: relative;
+            cursor: pointer;
+            top: 300px;
+            width: 150px;
+        }
+
+        #retry-button {
+            position: relative;
+            cursor: pointer;
+            top: 300px;
+            width: 150px;
+        }
+
+        #over-screen {
+            display: none;
+            position: absolute;
+            text-align: center;
+        }
+
+        #score-screen {
+            display: none;
+            position: absolute;
+            text-align: center;
+        }
+
+    </style>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>A Ball Game</title>
+    </head>
+    <body>
+        <div id="game-container">
+
+            <div id="score-screen">
+            <h1 id="score">0</h1>
+            </div>
+            <div id="start-screen">
+                <button id="start-button" onclick="startGame()">Start Game</button>
+                <button id="settings-button" onclick="clickSettings()">Settings</button>
+            </div>
+            <div id="settings-screen">
+                Radius<input type="range" min="1" max="100" value="18" class="slider" id="radiusSlider">
+                Pipe Gap<input type="range" min="20" max="400" value="165" class="slider" id="pipeGapSlider">
+                Gravity<input type="range" min="0" max="60" value="25" class="slider" id="gravitySlider">
+                Bounce Friction<input type="range" min="-10" max="70" value="30" class="slider" id="frictionSlider">
+                Speed Multiplier<input type="range" min="1" max="19" value="10" class="slider" id="multiplierSlider">
+                Max Speed<input type="range" min="3" max="100" value="6" class="slider" id="maxSpeedSlider">
+                <button id="start-button" onclick="backToStart()">Back</button>
+                <button id="start-button" onclick="defaultSettings()">Reset to Default</button>
+            </div>
+            <div id="over-screen">
+                <button id="retry-button" onclick="restartGame()">Try Again</button>
+                <button id="retry-back-button" onclick="retryToStart()">Back to Start</button>
+            </div>
+            <canvas></canvas>
+
+        </div>
+        
+        <h2>Click to push the ball downwards and make it bounce off the ground in order to avoid the sides of the red rectangles!</h1>
+    </body>
+    <script src="index.js"></script>
+</html>
