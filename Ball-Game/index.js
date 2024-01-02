@@ -67,8 +67,6 @@ let groundFriction = 1;
 let speedMultiplier = 7;
 let maxSpeed = 6;
 let highScore = 0;
-let fps = 1;
-let fpsVel = 12.9 / fps;
 
 class Player {
     constructor() {
@@ -206,7 +204,7 @@ class Platform {
             passCount++;
             if (this.velocity < maxSpeed) {
                 //this.velocity = 2 + (passCount / speedMultiplier);
-                this.velocity = fpsVel + (passCount / speedMultiplier); 
+                this.velocity = 2 + (passCount / speedMultiplier); 
             }
             else this.velocity = maxSpeed;
             this.position.x = canvas.width;
@@ -222,16 +220,9 @@ const platform = new Platform();
 
 
 let withPlat = 0; // If the ball is in line with the platform
-//var t = [];
-var t = [];
-fps = 1;
-function animate(now) {
-    if (t.length < 4) t.unshift(now);
-    if (t.length == 4) {
-        fps = t[0] - t[1];
-        fpsVel = 12.9 / fps;
-        t.unshift(1);
-    }
+
+function animate() {
+
     
     requestAnimationFrame(animate);
     
@@ -256,7 +247,7 @@ let gameStarted = 0;
 function startGame() {
     
     gameStarted = 1;
-    platform.velocity = fpsVel;
+    platform.velocity = 2;
     startScreen.style.display = "none";
     scoreScreen.style.display = "block";
     window.addEventListener('mousedown', handleMouseDown);
@@ -280,7 +271,7 @@ function restartGame() {
     highScoreEl.style.display = "none";
     platform.position.x = canvas.width;
     passCount = 1;
-    platform.velocity = fpsVel;
+    platform.velocity = 2;
     platFriction = 0;
     player.velocity.y = 5;
     player.position.x = (canvas.width / 4);
