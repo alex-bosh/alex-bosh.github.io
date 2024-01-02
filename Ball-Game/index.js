@@ -5,7 +5,6 @@ const settingsScreen = document.getElementById("settings-screen");
 const overScreen = document.getElementById("over-screen");
 const scoreScreen = document.getElementById("score-screen");
 const score = document.getElementById("score");
-const fpsEl = document.getElementById("fps");
 const highScoreEl = document.getElementById("high-score");
 highScoreEl.style.display = "none";
 canvas.width = 800;
@@ -68,6 +67,8 @@ let groundFriction = 1;
 let speedMultiplier = 7;
 let maxSpeed = 6;
 let highScore = 0;
+let fps = 1;
+let fpsVel = 12.9 / fps;
 
 class Player {
     constructor() {
@@ -204,7 +205,8 @@ class Platform {
         if (this.position.x <= -this.width) {
             passCount++;
             if (this.velocity < maxSpeed) {
-                this.velocity = 2 + (passCount / speedMultiplier);   
+                //this.velocity = 2 + (passCount / speedMultiplier);
+                this.velocity = fpsVel + (passCount / speedMultiplier); 
             }
             else this.velocity = maxSpeed;
             this.position.x = canvas.width;
@@ -220,19 +222,18 @@ const platform = new Platform();
 
 
 let withPlat = 0; // If the ball is in line with the platform
-let countfps = 1;
+//var t = [];
 var t = [];
-
+fps = 1;
 function animate(now) {
-    t.unshift(now);
-    if (t.length > 10) {
-        var t0 = t.pop();
-        var fps = Math.floor(1000 * 10 / (now - t0));
-        fpsEl.textContent = `FPS: ${fps}`;
+    if (t.length < 4) t.unshift(now);
+    if (t.length == 4) {
+        fps = t[0] - t[1];
+        fpsVel = 12.9 / fps;
+        t.unshift(1);
     }
+    
     requestAnimationFrame(animate);
-    //console.log(performance.now()/ countfps);
-    //countfps++;
     
     
     c.clearRect(0, 0, canvas.width, canvas.height);
@@ -251,9 +252,11 @@ animate();
 
 let gameStarted = 0;
 
+
 function startGame() {
+    
     gameStarted = 1;
-    platform.velocity = 2;
+    platform.velocity = fpsVel;
     startScreen.style.display = "none";
     scoreScreen.style.display = "block";
     window.addEventListener('mousedown', handleMouseDown);
@@ -277,7 +280,7 @@ function restartGame() {
     highScoreEl.style.display = "none";
     platform.position.x = canvas.width;
     passCount = 1;
-    platform.velocity = 2;
+    platform.velocity = fpsVel;
     platFriction = 0;
     player.velocity.y = 5;
     player.position.x = (canvas.width / 4);
