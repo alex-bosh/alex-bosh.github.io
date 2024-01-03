@@ -1,22 +1,30 @@
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
+
 const startScreen = document.getElementById("start-screen");
 const settingsScreen = document.getElementById("settings-screen");
 const overScreen = document.getElementById("over-screen");
 const scoreScreen = document.getElementById("score-screen");
-const score = document.getElementById("score");
+
+const scoreEl = document.getElementById("score");
 const highScoreEl = document.getElementById("high-score");
 highScoreEl.style.display = "none";
+
 canvas.width = 800;
 canvas.height = 500;
+
 startScreen.style.width = `${canvas.width}px`;
 startScreen.style.height = `${canvas.height}px`;
+
 settingsScreen.style.width = `${canvas.width}px`;
 settingsScreen.style.height = `${canvas.height}px`;
+
 overScreen.style.width = `${canvas.width}px`;
 overScreen.style.height = `${canvas.height}px`;
+
 scoreScreen.style.width = `${canvas.width}px`;
 scoreScreen.style.height = `${canvas.height}px`;
+
 var radiusSlider = document.getElementById("radiusSlider");
 radiusSlider.oninput = function () {
     player.radius = Number(this.value);
@@ -101,7 +109,7 @@ class Player {
 
         // Update the score
         if (this.position.x >= platform.position.x + (platform.width / 2) && this.position.x <= platform.position.x + platform.height) {
-            score.textContent = `${passCount}`;
+            scoreEl.textContent = `${passCount}`;
             if (passCount > highScore) highScore = passCount;
         }
 
@@ -111,7 +119,7 @@ class Player {
                 platform.velocity = -platform.velocity;
                 platFriction = 0.994;
                 this.position.x = platform.position.x - this.radius - 1; // Prevent the ball from getting stuck
-                score.style.fontSize = "100px";
+                scoreEl.style.fontSize = "100px";
                 highScoreEl.textContent = `High Score: ${highScore}`;
                 highScoreEl.style.display = "block";
                 window.removeEventListener('mousedown', handleMouseDown);
@@ -223,10 +231,8 @@ let withPlat = 0; // If the ball is in line with the platform
 
 function animate() {
 
-    
     requestAnimationFrame(animate);
-    
-    
+      
     c.clearRect(0, 0, canvas.width, canvas.height);
     platform.update();
     player.update();
@@ -276,8 +282,8 @@ function restartGame() {
     player.velocity.y = 5;
     player.position.x = (canvas.width / 4);
     player.position.y = canvas.height / 2;
-    score.textContent = "0";
-    score.style.fontSize = "31px";
+    scoreEl.textContent = "0";
+    scoreEl.style.fontSize = "31px";
     window.addEventListener('mousedown', handleMouseDown);
 
 }
@@ -294,8 +300,8 @@ function retryToStart() {
     player.velocity.y = 1;
     player.position.x = (canvas.width / 4);
     player.position.y = 100;
-    score.textContent = "0";
-    score.style.fontSize = "31px";
+    scoreEl.textContent = "0";
+    scoreEl.style.fontSize = "31px";
 }
 
 function handleMouseDown(event) {
