@@ -1,3 +1,11 @@
+const bg = new Image();
+bg.src = "bg.png";
+bg.onload = function () {
+    console.log(this.width);
+
+}
+
+
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
@@ -195,8 +203,8 @@ class Platform {
     draw() {
         c.fillStyle = 'red';
         c.fillRect(this.position.x, 0, this.width, this.position.y);
-        c.fillStyle = 'white';
-        c.fillRect(this.position.x, this.position.y, this.width, this.height);
+        //c.fillStyle = 'white';
+        //c.fillRect(this.position.x, this.position.y, this.width, this.height);
         c.fillStyle = 'red';
         c.fillRect(this.position.x, this.position.y + this.height, this.width, canvas.height - this.height);
     }
@@ -222,9 +230,39 @@ class Platform {
 
 }
 
+class Background {
+    constructor() {
+        this.id = 0;
+        this.image = bg;
+        this.velocity = 1.5;
+        this.position = {
+            x: 0,
+            y: 0
+        };
+    }
+
+    draw() {
+        c.drawImage(this.image, this.position.x, this.position.y);
+    }
+
+    update() {
+        this.draw();
+        this.position.x -= this.velocity;
+        if (this.position.x <= -799) {
+            console.log("1st pass");
+            this.position.x = 800;
+        }
+    }
+}
+
 let passCount = 1;
 const player = new Player();
 const platform = new Platform();
+const background = new Background();
+const background2 = new Background();
+background.id = 1;
+background2.id = 2;
+background2.position.x = 800;
 
 
 let withPlat = 0; // If the ball is in line with the platform
@@ -234,6 +272,9 @@ function animate() {
     requestAnimationFrame(animate);
       
     c.clearRect(0, 0, canvas.width, canvas.height);
+    
+    background.update();
+    background2.update();
     platform.update();
     player.update();
 
@@ -311,3 +352,6 @@ function handleMouseDown(event) {
         player.velocity.y += 3;
     }
 }
+
+
+
