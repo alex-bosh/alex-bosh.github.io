@@ -214,15 +214,25 @@ class Platform {
         if (platFriction == 0) this.position.x -= this.velocity;
         else {
             this.velocity *= platFriction;
+            background.velocity = this.velocity * 0.5;
+            background2.velocity = this.velocity * 0.5;
+            //background.position.x -= background.velocity;
+            //background2.position.x -= background2.velocity;
             this.position.x -= this.velocity;
         }
         if (this.position.x <= -this.width) {
             passCount++;
             if (this.velocity < maxSpeed) {
                 //this.velocity = 2 + (passCount / speedMultiplier);
-                this.velocity = 2 + (passCount / speedMultiplier); 
+                this.velocity = 2 + (passCount / speedMultiplier);
+                background.velocity = this.velocity * 0.5;
+                background2.velocity = this.velocity * 0.5;
             }
-            else this.velocity = maxSpeed;
+            else {
+                this.velocity = maxSpeed;
+                background.velocity = maxSpeed * 0.5;
+                background2.velocity = maxSpeed * 0.5;
+            }
             this.position.x = canvas.width;
             this.position.y = Math.floor(Math.random() * (canvas.height - this.height));
         }
@@ -248,9 +258,9 @@ class Background {
     update() {
         this.draw();
         this.position.x -= this.velocity;
-        if (this.position.x <= -799) {
+        if (this.position.x < -799) {
             console.log("1st pass");
-            this.position.x = 800;
+            this.position.x = 795;
         }
     }
 }
@@ -275,6 +285,7 @@ function animate() {
     
     background.update();
     background2.update();
+    console.log(background.velocity, background2.velocity);
     platform.update();
     player.update();
 
@@ -295,6 +306,8 @@ function startGame() {
     
     gameStarted = 1;
     platform.velocity = 2;
+    background.velocity = 1.5;
+    background2.velocity = 1.5;
     startScreen.style.display = "none";
     scoreScreen.style.display = "block";
     window.addEventListener('mousedown', handleMouseDown);
@@ -319,6 +332,8 @@ function restartGame() {
     platform.position.x = canvas.width;
     passCount = 1;
     platform.velocity = 2;
+    background.velocity = 1.5;
+    background2.velocity = 1.5;
     platFriction = 0;
     player.velocity.y = 5;
     player.position.x = (canvas.width / 4);
@@ -335,6 +350,8 @@ function retryToStart() {
     scoreScreen.style.display = "none";
     highScoreEl.style.display = "none";
     gameStarted = 0;
+    background.velocity = 1.5;
+    background2.velocity = 1.5;
     platform.position.x = canvas.width;
     passCount = 1;
     platFriction = 0;
