@@ -1,9 +1,6 @@
 const bg = new Image();
 bg.src = "bg.png";
-bg.onload = function () {
-    console.log(this.width);
-
-}
+bg.onload = function () { // }
 
 
 const canvas = document.querySelector('canvas');
@@ -259,7 +256,6 @@ class Background {
         this.draw();
         this.position.x -= this.velocity;
         if (this.position.x < -799) {
-            console.log("1st pass");
             this.position.x = 795;
         }
     }
@@ -285,7 +281,6 @@ function animate() {
     
     background.update();
     background2.update();
-    console.log(background.velocity, background2.velocity);
     platform.update();
     player.update();
 
