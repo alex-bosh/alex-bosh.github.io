@@ -1,7 +1,5 @@
 const bg = new Image();
 bg.src = "bg.png";
-bg.onload = function () { // }
-
 
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
@@ -88,7 +86,7 @@ class Player {
             x: (canvas.width / 4),
             y: 100
         };
-        this.color = 'blue';
+        this.color = 'lightblue';
 
         this.velocity = {
             x: 0,
