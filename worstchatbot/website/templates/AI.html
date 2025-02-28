@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block title %}AI{% endblock %} {% block content
+    %}
+    <form method="POST">
+        <h3 align="center">AI</h3>
+        <div class="form-group">
+            <label for="question">Ask Your Question</label>
+            <input type="text" class="form-control" id="question" name="question" placeholder="Enter question">
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Ask Question</button>
+    </form>
+    <h1>You'll get your answer here:</h1>
+    {% if response != "Default" %} {{ response }} {% endif %}
+    {% endblock %}
